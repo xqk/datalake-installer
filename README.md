@@ -1,1 +1,1 @@
-# datalake_installer
+# datalake-installer
