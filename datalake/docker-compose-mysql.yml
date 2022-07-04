@@ -1,0 +1,21 @@
+version: '2.1'
+services:
+
+  mysql:
+    image: xiaqiankun/mysql:5.7.36
+    container_name: mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u${DE_MYSQL_USER}", "-p${DE_MYSQL_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    env_file:
+      - ${DE_BASE}/datalake/conf/mysql.env
+    ports:
+      - ${DE_MYSQL_PORT}:3306
+    volumes:
+      - ${DE_BASE}/datalake/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ${DE_BASE}/datalake/bin/mysql:/docker-entrypoint-initdb.d/
+      - ${DE_BASE}/datalake/data/mysql:/var/lib/mysql
+    networks:
+      - datalake-network

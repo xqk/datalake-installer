@@ -1,0 +1,44 @@
+version: '2.1'
+services:
+
+  doris-fe:
+    image: xiaqiankun/doris:v1.0.0
+    container_name: doris-fe
+    environment:
+      - DORIS_ROLE=fe-leader
+    volumes:
+      - ${DE_BASE}/datalake/data/fe:/opt/doris/fe/doris-meta
+      - ${DE_BASE}/datalake/logs/fe:/opt/doris/fe/log
+      - ${DE_BASE}/datalake/conf/fe.conf:/opt/doris/fe/conf/fe.conf
+      - ${DE_BASE}/datalake/bin/doris:/docker-entrypoint-initdb.d/
+    networks:
+      datalake-network :
+        ipv4_address: ${DE_DORIS_FE_IP}
+    restart: always
+    depends_on:
+      doris-be:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -sS 127.0.0.1:8030 || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  doris-be:
+    image: registry.cn-qingdao.aliyuncs.com/dataease/doris:v1.0.0-0424
+    container_name: doris-be
+    environment:
+      - DORIS_ROLE=be
+    volumes:
+      - ${DE_BASE}/datalake/data/be:/opt/doris/be/storage
+      - ${DE_BASE}/datalake/logs/be:/opt/doris/be/log
+      - ${DE_BASE}/datalake/conf/be.conf:/opt/doris/be/conf/be.conf
+    networks:
+      datalake-network :
+        ipv4_address: ${DE_DORIS_BE_IP}
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -sS 127.0.0.1:8040 || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3

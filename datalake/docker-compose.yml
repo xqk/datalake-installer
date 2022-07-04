@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+
+  datalake:
+    image: registry.cn-qingdao.aliyuncs.com/datalake/datalake:DE_TAG
+    container_name: datalake
+    ports:
+      - ${DE_PORT}:8081
+    mem_limit: 4096m
+    volumes:
+      - ${DE_BASE}/datalake/conf:/opt/datalake/conf
+      - ${DE_BASE}/datalake/logs:/opt/datalake/logs
+      - ${DE_BASE}/datalake/plugins/thirdpart:/opt/datalake/plugins/thirdpart
+      - ${DE_BASE}/datalake/data/kettle:/opt/datalake/data/kettle
+      - ${DE_BASE}/datalake/data/static-resource:/opt/datalake/data/static-resource
+      - ${DE_BASE}/datalake/custom-drivers:/opt/datalake/custom-drivers
+    shm_size: 1gb
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - datalake-network
+
+networks:
+  datalake-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${DE_DOCKER_SUBNET}
+          gateway: ${DE_DOCKER_GATEWAY}
