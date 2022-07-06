@@ -3,7 +3,7 @@ services:
 
   doris-fe:
     image: xiaqiankun/doris:v1.0.0
-    container_name: doris-fe
+    container_name: datalake_doris-fe
     environment:
       - DORIS_ROLE=fe-leader
     volumes:
@@ -26,7 +26,7 @@ services:
 
   doris-be:
     image: registry.cn-qingdao.aliyuncs.com/dataease/doris:v1.0.0-0424
-    container_name: doris-be
+    container_name: datalake_doris-be
     environment:
       - DORIS_ROLE=be
     volumes:
