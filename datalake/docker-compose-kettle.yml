@@ -11,4 +11,6 @@ services:
       - ${DE_BASE}/datalake/data/kettle:/opt/datalake/data/kettle
     networks:
       - datalake-network
+    ports:
+      - ${DE_CARTE_PORT}:18080
     restart: always
