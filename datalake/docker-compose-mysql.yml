@@ -2,7 +2,7 @@ version: '2.1'
 services:
 
   mysql:
-    image: xiaqiankun/mysql:5.7.36
+    image: xiaqiankun/mysql:v5.7.36
     container_name: datalake-mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u${DE_MYSQL_USER}", "-p${DE_MYSQL_PASSWORD}"]
