@@ -15,6 +15,9 @@ services:
       datalake-network :
         ipv4_address: ${DE_DORIS_FE_IP}
     restart: always
+    ports:
+      - ${DE_DORIS_HTTPPORT}:8030
+      - ${DE_DORIS_PORT}:9030
     depends_on:
       doris-be:
         condition: service_healthy
