@@ -5,7 +5,7 @@ services:
     image: xiaqiankun/datalake:DE_TAG
     container_name: datalake
     ports:
-      - ${DE_PORT}:8081
+      - ${DE_PORT}:18082
     mem_limit: 4096m
     volumes:
       - ${DE_BASE}/datalake/conf:/opt/datalake/conf
