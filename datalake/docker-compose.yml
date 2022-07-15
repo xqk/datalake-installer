@@ -2,7 +2,7 @@ version: '2.1'
 services:
 
   datalake:
-    image: xiaqiankun/datalake:DE_TAG
+    image: xiaqiankun/datalake:${DE_TAG}
     container_name: datalake
     ports:
       - ${DE_PORT}:18082
