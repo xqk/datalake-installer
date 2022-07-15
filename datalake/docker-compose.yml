@@ -14,6 +14,8 @@ services:
       - ${DE_BASE}/datalake/data/kettle:/opt/datalake/data/kettle
       - ${DE_BASE}/datalake/data/static-resource:/opt/datalake/data/static-resource
       - ${DE_BASE}/datalake/custom-drivers:/opt/datalake/custom-drivers
+      - ${DE_BASE}/datalake/db:/opt/datalake/db
+      - ${DE_BASE}/datalake/templates:/opt/datalake/templates
     shm_size: 1gb
     depends_on:
       mysql:
