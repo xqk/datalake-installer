@@ -1,7 +1,7 @@
 version: '2.1'
 services:
 
-  doris-fe:
+  datalake-doris-fe:
     image: xiaqiankun/doris:v1.0.0
     container_name: datalake-doris-fe
     environment:
@@ -19,7 +19,7 @@ services:
       - ${DE_DORIS_HTTPPORT}:8030
       - ${DE_DORIS_PORT}:9030
     depends_on:
-      doris-be:
+      datalake-doris-be:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -sS 127.0.0.1:8030 || exit 1" ]
@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 3
 
-  doris-be:
+  datalake-doris-be:
     image: xiaqiankun/doris:v1.0.0
     container_name: datalake-doris-be
     environment:

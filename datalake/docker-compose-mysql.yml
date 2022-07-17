@@ -1,7 +1,7 @@
 version: '2.1'
 services:
 
-  mysql:
+  datalake-mysql:
     image: xiaqiankun/mysql:v5.7.36
     container_name: datalake-mysql
     healthcheck:
